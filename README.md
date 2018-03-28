@@ -1,9 +1,9 @@
-# 04_Battle-Tank
+﻿# 04_Battle-Tank
 This is Tank Battle game and advance control in UE4
 [here](https://www.youtube.com/channel/UC_TckjvFnxUp0wRrZqsTYoQ?view_as=subscriber) is my YouTube Channel.
 ### 1 Intro, Notes & Section 4 Assets ###
 
-+ Battle Tank is an open world tank fight
++  Battle Tank is an open world tank fight
 + This will be a head to head battle 
 + Other player can be human or simple AI 
 + Heavy focus on control systems 
