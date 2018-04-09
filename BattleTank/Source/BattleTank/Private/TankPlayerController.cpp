@@ -19,8 +19,19 @@ void ATankPlayerController::BeginPlay()
 	
 
 }
+// Called every frame
+void ATankPlayerController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	AimTowardCrosshair();
+}
+
 ATank* ATankPlayerController::GetControlledTannk() const {
 
 	return Cast<ATank>(GetPawn());
 
+}
+void ATankPlayerController::AimTowardCrosshair() {
+	if (!GetControlledTannk()) {return;	}
+	//Get world Location through lineTrace 
 }
