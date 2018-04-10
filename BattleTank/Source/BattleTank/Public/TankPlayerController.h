@@ -25,4 +25,7 @@ private:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+private:
+
+	bool GetSightRayHitLocation(FVector& Hitlocation) const;
 };
