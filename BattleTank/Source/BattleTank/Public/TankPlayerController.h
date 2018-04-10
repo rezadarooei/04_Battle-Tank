@@ -28,4 +28,8 @@ public:
 private:
 
 	bool GetSightRayHitLocation(FVector& Hitlocation) const;
+	UPROPERTY(EditAnywhere)
+	float CrosssHairXLocation = .5;
+	UPROPERTY(EditAnywhere)
+	float CrosssHairYLocation = .33333;
 };
