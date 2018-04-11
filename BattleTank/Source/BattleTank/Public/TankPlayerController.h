@@ -20,17 +20,21 @@ public:
 private:
 	ATank* GetControlledTannk() const;
 	//Start Tank Moving the barrel so that shot would hit there
-	//Corshair intersect the the world
+	//Crosshair intersect the the world
 	void AimTowardCrosshair();
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 private:
 
-	bool GetSightRayHitLocation(FVector& Hitlocation) const;
+	bool GetSightRayHitLocation(FVector& HitLocation) const;
 	bool GetLookDirection(FVector2D ScreenLocation, FVector & LookDirection) const;
+	bool GetlookvectorhitLocation(FVector LookDirection, FVector & HitLocation) const;
 	UPROPERTY(EditAnywhere)
 	float CrosssHairXLocation = .5;
 	UPROPERTY(EditAnywhere)
 	float CrosssHairYLocation = .33333;
+	UPROPERTY(EditAnywhere)
+	float LineTraceRange = 1000000;
+
 };
