@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
 #include "Engine/World.h"
@@ -30,13 +30,13 @@ void ATankPlayerController::Tick(float DeltaTime)
 	AimTowardCrosshair();
 }
 
-//Get tank control(????? ????? ???? ?? ?? ???? ???? ?? ???)
+//Get tank control(بدست آوردن کنترل تانک خروجی در غالب تانک و یافتن پاون که قبلا ساخت شده )
 ATank* ATankPlayerController::GetControlledTannk() const {
 
 	return Cast<ATank>(GetPawn());
 
 }
-//crosshair for the hit location (??? ???? ?? ?????)
+//crosshair for the hit location (هدف گذاری برای شلیک با تانک)
 void ATankPlayerController::AimTowardCrosshair() {
 	if (!GetControlledTannk()) {return;	}
 	FVector HitLocation;
@@ -49,17 +49,17 @@ void ATankPlayerController::AimTowardCrosshair() {
 		//tell controlledTank to aim this point
 }
 
-//get place that tank can hit(????? ???? ?? ?? ???? ????? ???? ??? ? ?? )
+//get place that tank can hit(یافتن مکان های که بشود شلیک کرد )
 bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 {
-	//find crosshair Position(????? ??? ???? ???? ???? ???? ? ?? ???)
+	//find crosshair Position(یافتن مکان نقطه هدف سفید)
 	int32 ViewPortSizeX, ViewPortSizeY;
-	GetViewportSize(ViewPortSizeX, ViewPortSizeY);//????? ????? ???????
-	auto ScreenLocation=FVector2D(CrosssHairXLocation*ViewPortSizeX,CrosssHairYLocation*ViewPortSizeY);//??? ???? ????
+	GetViewportSize(ViewPortSizeX, ViewPortSizeY);//یافتن ابعاد تصویر که بازی اجرا می شود
+	auto ScreenLocation=FVector2D(CrosssHairXLocation*ViewPortSizeX,CrosssHairYLocation*ViewPortSizeY);//get the white dot according to size of platform(یافتن هدف با توجه به ابعاد تصویر)
 
-	//"De-project" Screen position of the Crosshair to a world direction(????? ??? ???? ?? ??????? ?? ???? ?? ????)
+	//"De-project" Screen position of the Crosshair to a world direction(تبدیل نقطه یافته شده به جهان)
 	FVector LookDirection;
-	//(????? ??? ???? ?? ??????? ?? ???? ?? ????)
+	//(if get direction send line-trace)
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
 		//Line-Trace Long that  LookDirection,and see what we hit(up to max range)
@@ -69,7 +69,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 	
 	return true;
 }
-//(????? ??? ???? ?? ??????? ?? ???? ?? ????)
+//( ورودی ابعاد تصویر و جهت را میگیرد خروجی تبیدل شده مقداری بازگشتی بولین)
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation,FVector& LookDirection) const {
 
 	FVector CameraWorldLocation;//to be discarded not important
@@ -78,7 +78,7 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation,FVector& L
 		CameraWorldLocation,
 		LookDirection);
 	}
-// ????? ??? ???? ?? ??? ?? ?? ???? ?? ???? ???? ???? ??? ??????? ??? ? ?????? ??
+// یافتن برداری که برای ضربه می باشد و استفاده در لاین تریس یعنی موج می فرستد در فاصله ی نزدیک کاری باید کند
 bool ATankPlayerController::GetlookvectorhitLocation(FVector LookDirection,FVector& HitLocation ) const {
 	FHitResult HitResult;
 	auto StartLocation = PlayerCameraManager->GetCameraLocation();
