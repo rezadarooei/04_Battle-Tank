@@ -41,7 +41,7 @@ void ATankPlayerController::AimTowardCrosshair() {
 	if (!GetControlledTannk()) {return;	}
 	FVector HitLocation;
 	if (GetSightRayHitLocation(HitLocation)) {
-		UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *HitLocation.ToString());
+		GetControlledTannk()->AimAt(HitLocation);
 	}
 	
 	//Get world Location of lineTrace through crosshair

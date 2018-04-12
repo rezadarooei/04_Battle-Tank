@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 #include "TankAIController.h"
 #include "TankPlayerController.h"
 #include "Engine/World.h"
@@ -28,5 +28,19 @@ ATank* ATankAIController::GetPlayerTank() const {
 	if (!PlayerTank) { return nullptr; }
 	else {
 		return Cast<ATank>(PlayerTank);
+	}
+}
+
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick( DeltaTime);
+	if (!GetContolledTank()) {
+		return;
+	}
+	if (GetContolledTank()) {
+		//TODO move towards player
+		//Aim towards player(هدف گیری تانک اصلی)
+		GetContolledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+		//FIre if ready
 	}
 }

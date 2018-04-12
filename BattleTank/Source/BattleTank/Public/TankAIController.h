@@ -20,5 +20,7 @@ private:
 	ATank* GetContolledTank() const;
 	ATank* GetPlayerTank() const;
 
-	
+private:
+	// Called every frame
+	virtual void Tick(float DeltaSecond) override;
 };
