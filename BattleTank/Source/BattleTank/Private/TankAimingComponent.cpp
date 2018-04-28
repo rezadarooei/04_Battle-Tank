@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAimingComponent.h"
-
+#include "Runtime/Engine/Classes/Components/SceneComponent.h"
+#include"Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -37,10 +38,30 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	// ...
 }
 
-void UTankAimingComponent::AimAt(FVector HitLocation)
+void UTankAimingComponent::AimAt(FVector HitLocation, float LunchSpeed)
 {
-	auto OurTank = GetOwner()->GetName();
-	auto BarrelLocation = Barrel->GetComponentLocation().ToString();
-	UE_LOG(LogTemp, Warning, TEXT("%s Aiming at: %s from  %s"), *OurTank, *HitLocation.ToString(),*BarrelLocation);
+	if (!Barrel) { return; }
+	FVector OutLunchVelocity;
+	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+	//calculate out lunch velocity
+	
+	if (
+		UGameplayStatics::SuggestProjectileVelocity(
+			this,
+			OutLunchVelocity,
+			StartLocation,
+			HitLocation,
+			LunchSpeed,
+			false,
+			0.f,
+			0.f,
+			ESuggestProjVelocityTraceOption::DoNotTrace
+		)) {
+		auto AimDirection = OutLunchVelocity.GetSafeNormal();
+		auto TankName = GetOwner()->GetName();
+		UE_LOG(LogTemp, Warning, TEXT("%s Aim At %s"),*TankName ,*AimDirection.ToString());
+	}
+
+	
 }
 

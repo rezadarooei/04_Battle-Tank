@@ -31,5 +31,6 @@ public:
 
 	void AimAt(FVector HitLocation);
 	
-
+	UPROPERTY(EditAnywhere, Category = Firing)
+		float LunchSpeed = 100000;//TODO find sensible default
 };
