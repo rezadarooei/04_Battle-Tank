@@ -20,48 +20,45 @@ void UTankAimingComponent::SetBarrelRefrence(UStaticMeshComponent * BarrelToSet)
 	Barrel = BarrelToSet;
 }
 
-// Called when the game starts
-void UTankAimingComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-	
-}
-
-
-// Called every frame
-void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
-
 void UTankAimingComponent::AimAt(FVector HitLocation, float LunchSpeed)
 {
 	if (!Barrel) { return; }
 	FVector OutLunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+	//UGameplayStatics* VolicityCounter;
 	//calculate out lunch velocity
-	
-	if (
-		UGameplayStatics::SuggestProjectileVelocity(
-			this,
-			OutLunchVelocity,
-			StartLocation,
-			HitLocation,
-			LunchSpeed,
-			false,
-			0.f,
-			0.f,
-			ESuggestProjVelocityTraceOption::DoNotTrace
-		)) {
+	TArray<AActor*> ActorsToIgnore;
+	bool bIsSolution = UGameplayStatics::SuggestProjectileVelocity(
+		this,
+		OutLunchVelocity,
+		StartLocation,
+		HitLocation,
+		LunchSpeed,
+		false,
+		0.f,
+		0.f,
+		ESuggestProjVelocityTraceOption::DoNotTrace,
+		FCollisionResponseParams::DefaultResponseParam,
+		ActorsToIgnore,
+		true
+	);
+	if (bIsSolution) {
 		auto AimDirection = OutLunchVelocity.GetSafeNormal();
-		auto TankName = GetOwner()->GetName();
-		UE_LOG(LogTemp, Warning, TEXT("%s Aim At %s"),*TankName ,*AimDirection.ToString());
+		//FRotator AimRotation=OutLunchVelocity.Rotation
+		MoveBarrelTowords(AimDirection);
 	}
 
 	
+}
+
+void UTankAimingComponent::MoveBarrelTowords(FVector AimDirection)
+{
+	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
+	auto AimRotator = AimDirection.Rotation();
+	auto DeltaRotator = AimRotator - BarrelRotator;
+	UE_LOG(LogTemp,Warning,TEXT("Barrel Rotator :%s"),*DeltaRotator.ToString())
+	//Move The 	Barrel the RightAmount of this Frame
+		//Give Max Elevation Speed
+
 }
 
