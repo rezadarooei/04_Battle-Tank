@@ -7,6 +7,8 @@
 #include "TankAimingComponent.h"
 #include "Tank.generated.h"
 
+class UTankBarrel;
+
 UCLASS()
 class BATTLETANK_API ATank : public APawn
 {
@@ -16,7 +18,7 @@ public:
 	// Sets default values for this pawn's properties
 	ATank();
 	UFUNCTION(BlueprintCallable, Category = Setup)
-		void SetBarrelRefrence(UStaticMeshComponent* BarrelToSet);
+		void SetBarrelRefrence(UTankBarrel* BarrelToSet);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
