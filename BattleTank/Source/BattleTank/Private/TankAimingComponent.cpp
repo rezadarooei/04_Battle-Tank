@@ -27,20 +27,20 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LunchSpeed)
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 	//UGameplayStatics* VolicityCounter;
 	//calculate out lunch velocity
-	//TArray<AActor*> ActorsToIgnore;
+	TArray<AActor*> ActorsToIgnore;
 	bool bIsSolution = UGameplayStatics::SuggestProjectileVelocity(
 		this,
 		OutLunchVelocity,
 		StartLocation,
 		HitLocation,
 		LunchSpeed,
-// 		false,
-// 		0.f,
-// 		0.f,
- 		ESuggestProjVelocityTraceOption::DoNotTrace
-// 		FCollisionResponseParams::DefaultResponseParam,
-// 		ActorsToIgnore,
-// 		true
+		false,
+		0.f,
+		0.f,
+ 		ESuggestProjVelocityTraceOption::DoNotTrace,
+ 		FCollisionResponseParams::DefaultResponseParam,
+ 		ActorsToIgnore,
+ 		true
 	);
 	if (bIsSolution) {
 		auto AimDirection = OutLunchVelocity.GetSafeNormal();
